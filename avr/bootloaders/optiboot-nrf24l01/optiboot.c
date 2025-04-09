@@ -793,14 +793,14 @@ static uint8_t radio_present = 0;
 static uint8_t pkt_max_len = 32;
 
 #warning Make sure pin config matches hardware setup.
-#warning Here CE  = PIN9  (PORTB1)
-#warning Here CSN = PIN10 (PORTB2)
-#define CE_DDR		DDRB
-#define CE_PORT		PORTB
+#warning Here CE  = PIN7  (PORTD7)
+#warning Here CSN = PIN8 (PORTB0)
+#define CE_DDR		DDRD
+#define CE_PORT		PORTD
 #define CSN_DDR		DDRB
 #define CSN_PORT	PORTB
-#define CE_PIN		(1 << 1)
-#define CSN_PIN		(1 << 2)
+#define CE_PIN		(1 << 7)
+#define CSN_PIN		(1 << 0)
 
 #include "spi.h"
 #include "nrf24.h"
@@ -822,9 +822,13 @@ static void radio_init(void) {
    * The remote end's address will be set according to the contents
    * of the first packet we receive from the master.
    */
-  addr[0] = eeprom_read(0);
-  addr[1] = eeprom_read(1);
-  addr[2] = eeprom_read(2);
+ // addr[0] = eeprom_read(0);
+ // addr[1] = eeprom_read(1);
+ // addr[2] = eeprom_read(2);
+  addr[0] = 0x30;
+  addr[1] = 0x30;
+  addr[2] = 0x31;
+
   nrf24_set_rx_addr(addr);
 
   nrf24_rx_mode();
