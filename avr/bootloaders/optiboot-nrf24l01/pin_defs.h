@@ -6,7 +6,7 @@
  */ 
 #if !defined(LED)
 //#define LED B5
-#define LED D4
+#define LED C2
 #endif
 
 /* Ports for soft UART */
